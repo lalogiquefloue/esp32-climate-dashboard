@@ -1,1 +1,1 @@
-# esp32-humidity-dashboard
+# esp32-climate-dashboard

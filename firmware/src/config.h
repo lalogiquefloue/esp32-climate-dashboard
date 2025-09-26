@@ -6,8 +6,8 @@
 
 #define BAUD 115200
 
-#define WIFI_NETWORK_NAME ""
-#define WIFI_NETWORK_PASSWORD ""
+#define WIFI_SSID  ""
+#define WIFI_PASSWORD ""
 
 #define MAX_LOGS 1000 // number of logs kept in memory
 

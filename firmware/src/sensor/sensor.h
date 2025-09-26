@@ -7,7 +7,10 @@
 
 class Sensor {
     private:
-        int sensorID;
+        // int sensorID; // TODO: how should this be initialised
+        DHT dht;
+        float humidity;
+        float temperature;
 
     public:
         Sensor();
@@ -16,7 +19,7 @@ class Sensor {
         float GetTemperature();
         float GetHumidity();
 
-        void SendData();
+        std::string dataToString();
 };
 
 #endif

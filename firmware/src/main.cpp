@@ -1,18 +1,23 @@
+#include "HTTPManager/HTTPManager.h"
 #include "NetworkManager/NetworkManager.h"
 #include "Sensor/Sensor.h"
 #include "config.h"
 
 Sensor sensor;
 NetworkManager networkManager;
+HTTPManager httpManager(LOCAL_PORT);
 
-void setup() {
+void setup()
+{
   Logging::begin();
   networkManager.connect();
+  httpManager.setupServer();
+  sensor.Initialize();
 }
 
-void loop() {
+void loop()
+{
   delay(UPDATE_RATE);
-  Logging::Info(networkManager.isConnected() ? "Connected" : "Not connected");
-  sensor.GetHumidity();
-  sensor.GetTemperature();
+  sensor.UpdateSensorData();
+  httpManager.handleClient();
 }

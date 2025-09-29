@@ -10,6 +10,7 @@ class NetworkManager {
 private:
     String ssid;
     String password;
+    String local_ip;
 
 public:
     NetworkManager();

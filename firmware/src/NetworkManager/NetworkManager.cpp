@@ -4,7 +4,7 @@ WiFiClient client;
 
 NetworkManager::NetworkManager() {
     this->ssid = WIFI_SSID;
-    this->password = WIFI_PASSWORD;
+    this->password = WIFI_PASSWORD; 
 }
 
 NetworkManager::~NetworkManager() {
@@ -17,6 +17,9 @@ void NetworkManager::connect() {
         Logging::Info("Waiting for WiFi connection...");
         delay(1000);
     }
+
+    local_ip =  WiFi.localIP().toString();
+    Logging::Info("Connected to Wifi, local IP address: " + local_ip);
 }
 
 void NetworkManager::verifyConnection(){

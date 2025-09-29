@@ -7,19 +7,23 @@
 
 class Sensor {
     private:
-        // int sensorID; // TODO: how should this be initialised
         DHT dht;
+        uint64_t sensorID;
         float humidity;
         float temperature;
-
-    public:
+        int update_time;
+        
+        public:
         Sensor();
         ~Sensor();
+        
+        void Initialize();
 
         float GetTemperature();
         float GetHumidity();
+        void UpdateSensorData();
 
-        std::string dataToString();
+        String dataToString();
 };
 
 #endif

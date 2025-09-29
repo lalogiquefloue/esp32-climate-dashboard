@@ -1,6 +1,6 @@
 #include "Logging.h"
 
-std::vector<std::string> Logging::logs;
+std::vector<String> Logging::logs;
 
 void Logging::begin(unsigned long baud) {
     Serial.begin(baud);
@@ -9,10 +9,10 @@ void Logging::begin(unsigned long baud) {
     Serial.println(baud);
 }
 
-void Logging::log(LogLevel level, const std::string& msg) {
-    const char* color;
-    const char* prefix;
-    const char* date_time = "date_time"; // TODO
+void Logging::log(LogLevel level, const String& msg) {
+    String color;
+    String prefix;
+    String date_time = "date_time"; // TODO
 
     switch(level) {
         case LOG_INFO:  
@@ -26,21 +26,21 @@ void Logging::log(LogLevel level, const std::string& msg) {
             break;
     }
     
-    const std::string formatted_msg = std::string("[") + date_time + "] " + prefix + msg;    
+    const String formatted_msg = "[" + date_time + "] " + prefix + msg;    
 
     addToBuffer(formatted_msg);
     Serial.println(formatted_msg.c_str());
 }
 
-void Logging::Info(const std::string& msg)  { log(LOG_INFO, msg); }
-void Logging::Warn(const std::string& msg)  { log(LOG_WARNING, msg); }
-void Logging::Error(const std::string& msg) { log(LOG_ERROR, msg); }
+void Logging::Info(const String& msg)  { log(LOG_INFO, msg); }
+void Logging::Warn(const String& msg)  { log(LOG_WARNING, msg); }
+void Logging::Error(const String& msg) { log(LOG_ERROR, msg); }
 
-const std::vector<std::string>& Logging::getLogs() {
+const std::vector<String>& Logging::getLogs() {
     return logs;
 }
 
-void Logging::addToBuffer(const std::string& msg) {
+void Logging::addToBuffer(const String& msg) {
     logs.push_back(msg);
     if (logs.size() > MAX_LOGS) {
         logs.erase(logs.begin());

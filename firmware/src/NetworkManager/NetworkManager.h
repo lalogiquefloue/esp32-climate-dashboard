@@ -8,8 +8,8 @@
 
 class NetworkManager {
 private:
-    const char* ssid;
-    const char* password;
+    String ssid;
+    String password;
 
 public:
     NetworkManager();

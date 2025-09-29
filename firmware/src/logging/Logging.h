@@ -16,15 +16,15 @@ class Logging {
     public:
         static void begin(unsigned long baud = BAUD);
         
-        static void log(LogLevel level, const std::string& msg);
-        static void Info(const std::string& msg);
-        static void Warn(const std::string& msg);
-        static void Error(const std::string& msg);
-        static const std::vector<std::string>& getLogs();
+        static void log(LogLevel level, const String& msg);
+        static void Info(const String& msg);
+        static void Warn(const String& msg);
+        static void Error(const String& msg);
+        static const std::vector<String>& getLogs();
     
     private:
-        static std::vector<std::string> logs;
-        static void addToBuffer(const std::string& msg);
+        static std::vector<String> logs;
+        static void addToBuffer(const String& msg);
 };
 
 #endif

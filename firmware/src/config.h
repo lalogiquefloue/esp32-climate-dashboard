@@ -9,8 +9,10 @@
 #define WIFI_SSID  ""
 #define WIFI_PASSWORD ""
 
-#define MAX_LOGS 1000 // number of logs kept in memory
+#define LOCAL_PORT 8765
 
-#define UPDATE_RATE 2000 // delta between sensor readings in ms 
+#define MAX_LOGS 10 // number of logs kept in memory
+
+#define UPDATE_RATE 1000 // time delta between sensor readings in ms 
 
 #endif

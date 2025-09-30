@@ -1,6 +1,7 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
+#include <ArduinoJson.h>
 #include <DHT.h>
 #include "config.h"
 #include "logging/logging.h"
@@ -13,7 +14,7 @@ class Sensor {
         float temperature;
         int update_time;
         
-        public:
+    public:
         Sensor();
         ~Sensor();
         
@@ -24,6 +25,9 @@ class Sensor {
         void UpdateSensorData();
 
         String dataToString();
+        JsonDocument dataToJson();
 };
+
+extern Sensor sensor;
 
 #endif

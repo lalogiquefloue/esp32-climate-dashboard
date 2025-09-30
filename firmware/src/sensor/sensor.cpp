@@ -1,5 +1,7 @@
 #include "sensor.h"
 
+Sensor sensor;
+
 Sensor::Sensor() : dht(DHT_PIN, DHT_TYPE){};
 Sensor::~Sensor() {};
 
@@ -43,4 +45,15 @@ void Sensor::UpdateSensorData(){
 
 String Sensor::dataToString() {
     return "Sensor ID: " + String(sensorID) + ", Time:" + String(update_time) + ", Temperature: " + String(temperature) + " °C, " + "Humidity: " + String(humidity) + " %";
+}
+
+JsonDocument Sensor::dataToJson() {
+    JsonDocument data;
+
+    data["sensorID"] = String(sensorID);
+    data["time"] = update_time;
+    data["temperature"] = temperature;
+    data["humidity"] = humidity;
+
+    return data;
 }

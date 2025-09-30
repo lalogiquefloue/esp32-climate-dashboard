@@ -3,9 +3,9 @@
 #include "Sensor/Sensor.h"
 #include "config.h"
 
-Sensor sensor;
 NetworkManager networkManager;
 HTTPManager httpManager(LOCAL_PORT);
+String BASE_URL = String("http://") + SERVER_URL + String(":") + String(SERVER_PORT);
 
 void setup()
 {
@@ -18,6 +18,11 @@ void setup()
 void loop()
 {
   delay(UPDATE_RATE);
-  sensor.UpdateSensorData();
+
   httpManager.handleClient();
+
+  sensor.UpdateSensorData();
+
+  JsonDocument sensorData = sensor.dataToJson();
+  httpManager.handlePostDataToServer(BASE_URL + "/sensor/data", sensorData);
 }

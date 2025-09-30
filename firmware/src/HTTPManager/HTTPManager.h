@@ -3,22 +3,25 @@
 
 #include "../config.h"
 #include <ArduinoJson.h>
-#include <WebServer.h>
+#include <HTTPClient.h>
 #include <string>
+#include <WebServer.h>
 
 class HTTPManager
 {
 private:
     WebServer server;
-
-public:
+    void handleGetRootRequest();
+    void handleGetDataRequest();
+    String serializeData(JsonDocument data);
+    
+    public:
     HTTPManager(int port = 80);
     ~HTTPManager();
-
+    
     void setupServer();
     void handleClient();
-    String sendPostRequest(const String &url, const String &payload);
-    String serializeData(JsonDocument data);
+    void handlePostDataToServer(const String &url, const JsonDocument &payload);
 };
 
 #endif

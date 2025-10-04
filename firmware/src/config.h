@@ -16,6 +16,8 @@
 
 #define MAX_LOGS 10 // number of logs kept in memory
 
-#define UPDATE_RATE 1000 // time delta between sensor readings in ms 
+#define UPDATE_RATE 10000 // time delta between sensor readings in ms 
+
+#define TIME_ZONE_SPECIFICATION "EST5EDT,M3.2.0,M11.1.0" // https://di-mgt.com.au/wclock/help/wclo_tzexplain.html
 
 #endif

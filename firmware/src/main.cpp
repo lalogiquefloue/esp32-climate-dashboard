@@ -1,6 +1,7 @@
 #include "HTTPManager/HTTPManager.h"
 #include "NetworkManager/NetworkManager.h"
 #include "Sensor/Sensor.h"
+#include "utils/Timestamp.h"
 #include "config.h"
 
 NetworkManager networkManager;
@@ -11,6 +12,7 @@ void setup()
 {
   Logging::begin();
   networkManager.connect();
+  Timestamp::Initialize();
   httpManager.setupServer();
   sensor.Initialize();
 }

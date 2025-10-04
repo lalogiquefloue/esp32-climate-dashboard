@@ -1,5 +1,4 @@
 #include "HTTPManager.h"
-#include "../Sensor/sensor.h"
 
 HTTPManager::HTTPManager(int port) : server(port) {};
 HTTPManager::~HTTPManager() {};

@@ -12,7 +12,7 @@ void Logging::begin(unsigned long baud) {
 void Logging::log(LogLevel level, const String& msg) {
     String color;
     String prefix;
-    String date_time = "date_time"; // TODO
+    String date_time = Timestamp::GetFormattedCurrentTime();
 
     switch(level) {
         case LOG_INFO:  

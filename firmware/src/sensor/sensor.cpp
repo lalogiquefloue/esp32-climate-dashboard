@@ -8,10 +8,14 @@ Sensor::~Sensor() {};
 void Sensor::Initialize(){
     sensorID = ESP.getEfuseMac();
     dht.begin();
+    
+    configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+
+    update_time = Timestamp::GetCurrentTime();
+    temperature = GetTemperature();
+    humidity = GetHumidity();
+
     Logging::Info("Sensor initialized...");
-    temperature = 0.0f;
-    humidity = 0.0f;
-    update_time = 0; // TODO
 }
 
 float Sensor::GetTemperature(){
@@ -41,6 +45,13 @@ float Sensor::GetHumidity(){
 void Sensor::UpdateSensorData(){
     GetHumidity();
     GetTemperature();
+
+    time_t now = time(nullptr);
+    if (now > 0) {
+        update_time = now;
+    } else {
+        Logging::Error("Failed to get current time...");
+    }
 };
 
 String Sensor::dataToString() {

@@ -2,6 +2,8 @@
 #define HTTP_MANAGER_H
 
 #include "../config.h"
+#include "../Sensor/sensor.h"
+#include "../utils/Timestamp.h"
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 #include <string>

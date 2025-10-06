@@ -6,11 +6,18 @@
 
 #define BAUD 115200
 
-#define WIFI_NETWORK_NAME ""
-#define WIFI_NETWORK_PASSWORD ""
+#define WIFI_SSID  ""
+#define WIFI_PASSWORD ""
 
-#define MAX_LOGS 1000 // number of logs kept in memory
+#define LOCAL_PORT 9876
 
-#define UPDATE_RATE 2000 // delta between sensor readings in ms 
+#define SERVER_URL "192.168.0.2"
+#define SERVER_PORT 8765
+
+#define MAX_LOGS 10 // number of logs kept in memory
+
+#define UPDATE_RATE 10000 // time delta between sensor readings in ms 
+
+#define TIME_ZONE_SPECIFICATION "EST5EDT,M3.2.0,M11.1.0" // https://di-mgt.com.au/wclock/help/wclo_tzexplain.html
 
 #endif

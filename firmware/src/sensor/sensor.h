@@ -3,15 +3,16 @@
 
 #include <ArduinoJson.h>
 #include <DHT.h>
+
 #include "config.h"
-#include "logging/logging.h"
+#include "logging/Logging.h"
 #include "utils/Timestamp.h"
 
 class Sensor {
     private:
         DHT dht;
         uint64_t sensorID;
-        time_t update_time;
+        time_t updateTime;
         float humidity;
         float temperature;
         
@@ -19,11 +20,11 @@ class Sensor {
         Sensor();
         ~Sensor();
         
-        void Initialize();
+        void initialize();
 
-        float GetTemperature();
-        float GetHumidity();
-        void UpdateSensorData();
+        float getTemperature();
+        float getHumidity();
+        void updateSensorData();
 
         String dataToString();
         JsonDocument dataToJson();

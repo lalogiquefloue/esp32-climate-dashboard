@@ -1,16 +1,17 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <WiFi.h>
 #include <Arduino.h>
+#include <WiFi.h>
+
 #include "config.h"
-#include "../Logging/Logging.h"
+#include "logging/Logging.h"
 
 class NetworkManager {
 private:
     String ssid;
     String password;
-    String local_ip;
+    String localIp;
 
 public:
     NetworkManager();
@@ -21,7 +22,6 @@ public:
     void connect();
     void verifyConnection();
     bool isConnected();
-    // std::string getIP();
 };
 
 #endif

@@ -1,20 +1,21 @@
-#include "HTTPManager/HTTPManager.h"
-#include "NetworkManager/NetworkManager.h"
-#include "Sensor/Sensor.h"
-#include "utils/Timestamp.h"
 #include "config.h"
+#include "http_manager/HTTPManager.h"
+#include "network_manager/NetworkManager.h"
+#include "sensor/sensor.h"
+#include "utils/Timestamp.h"
+
+const String BASE_URL = String("http://") + SERVER_URL + String(":") + String(SERVER_PORT);
 
 NetworkManager networkManager;
 HTTPManager httpManager(LOCAL_PORT);
-String BASE_URL = String("http://") + SERVER_URL + String(":") + String(SERVER_PORT);
 
 void setup()
 {
   Logging::begin();
   networkManager.connect();
-  Timestamp::Initialize();
+  Timestamp::initialize();
   httpManager.setupServer();
-  sensor.Initialize();
+  sensor.initialize();
 }
 
 void loop()
@@ -23,7 +24,7 @@ void loop()
 
   httpManager.handleClient();
 
-  sensor.UpdateSensorData();
+  sensor.updateSensorData();
 
   JsonDocument sensorData = sensor.dataToJson();
   httpManager.handlePostDataToServer(BASE_URL + "/sensor/data", sensorData);

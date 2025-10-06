@@ -1,13 +1,13 @@
 #ifndef HTTP_MANAGER_H
 #define HTTP_MANAGER_H
 
-#include "../config.h"
-#include "../Sensor/sensor.h"
-#include "../utils/Timestamp.h"
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
-#include <string>
 #include <WebServer.h>
+
+#include "config.h"
+#include "sensor/sensor.h"
+#include "utils/Timestamp.h"
 
 class HTTPManager
 {

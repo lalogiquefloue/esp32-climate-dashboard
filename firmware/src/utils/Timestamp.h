@@ -2,15 +2,18 @@
 #define TIMESTAMP_H
 
 #include <time.h>
+
 #include <Arduino.h>
+
 #include "config.h"
 
-class Timestamp {
+class Timestamp
+{
 public:
-    static void Initialize();
-    static time_t GetCurrentTime();
-    static String FormatTime(time_t epochTime);
-    static String GetFormattedCurrentTime();
+    static void initialize();
+    static time_t getCurrentTime();
+    static String formatTime(time_t epochTime);
+    static String getFormattedCurrentTime();
 };
 
 #endif

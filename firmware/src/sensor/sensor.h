@@ -1,22 +1,35 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
+#include <ArduinoJson.h>
 #include <DHT.h>
+
 #include "config.h"
-#include "logging/logging.h"
+#include "logging/Logging.h"
+#include "utils/Timestamp.h"
 
 class Sensor {
     private:
-        int sensorID;
-
+        DHT dht;
+        uint64_t sensorID;
+        time_t updateTime;
+        float humidity;
+        float temperature;
+        
     public:
         Sensor();
         ~Sensor();
+        
+        void initialize();
 
-        float GetTemperature();
-        float GetHumidity();
+        float getTemperature();
+        float getHumidity();
+        void updateSensorData();
 
-        void SendData();
+        String dataToString();
+        JsonDocument dataToJson();
 };
+
+extern Sensor sensor;
 
 #endif

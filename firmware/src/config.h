@@ -9,10 +9,10 @@
 #define WIFI_SSID  ""
 #define WIFI_PASSWORD ""
 
-#define LOCAL_PORT 8765
+#define LOCAL_PORT 9876
 
-#define SERVER_URL "192.168.0.22"
-#define SERVER_PORT 5000
+#define SERVER_URL "192.168.0.2"
+#define SERVER_PORT 8765
 
 #define MAX_LOGS 10 // number of logs kept in memory
 

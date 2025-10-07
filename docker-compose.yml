@@ -1,10 +1,10 @@
 services:
   server:
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     env_file:
-      - ./configs/.env
+      - ./server/internal/configs/.env
     ports:
       - "8765:8765"
     depends_on:

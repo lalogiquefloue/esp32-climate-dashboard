@@ -9,7 +9,7 @@ import (
 
 type Config struct {
 	Server   Server
-	Database database
+	Database Database
 }
 
 type Server struct {
@@ -17,12 +17,15 @@ type Server struct {
 	Port    string
 }
 
-type database struct {
-	DB string
+type Database struct {
+	Bucket string
+	Org    string
+	Token  string
+	URL    string
 }
 
 func LoadConfigs() *Config {
-	err := godotenv.Load("configs/.env")
+	err := godotenv.Load("./internal/configs/.env")
 
 	if err != nil {
 		panic("Error loading .env file...")
@@ -33,8 +36,11 @@ func LoadConfigs() *Config {
 			Address: GetEnvValue("SERVER_ADDRESS"),
 			Port:    GetEnvValue("SERVER_PORT"),
 		},
-		Database: database{
-			DB: GetEnvValue("DATABASE_URL"),
+		Database: Database{
+			Bucket: GetEnvValue("DATABASE_BUCKET"),
+			Org:    GetEnvValue("DATABASE_ORG"),
+			Token:  GetEnvValue("DATABASE_TOKEN"),
+			URL:    GetEnvValue("DATABASE_URL"),
 		},
 	}
 

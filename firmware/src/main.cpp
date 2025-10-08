@@ -27,5 +27,5 @@ void loop()
   sensor.updateSensorData();
 
   JsonDocument sensorData = sensor.dataToJson();
-  httpManager.handlePostDataToServer(BASE_URL + "/sensor/data", sensorData);
+  httpManager.handlePostDataToServer(BASE_URL + "/api/sensor/data", sensorData);
 }

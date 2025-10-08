@@ -9,11 +9,12 @@ import (
 )
 
 type Handlers struct {
-	config *configs.Config
+	config           *configs.Config
+	latestSensorData map[string]interface{}
 }
 
 func NewHandlers(config *configs.Config) *Handlers {
-	return &Handlers{config: config}
+	return &Handlers{config: config, latestSensorData: nil}
 }
 
 func (h *Handlers) Home(c *gin.Context) {
@@ -24,6 +25,7 @@ func (h *Handlers) Home(c *gin.Context) {
 		"database-url":    h.config.Database.URL,
 		"database-bucket": h.config.Database.Bucket,
 		"database-org":    h.config.Database.Org,
+		"latest-data":     h.latestSensorData,
 		"status":          "running",
 	})
 }
@@ -37,9 +39,23 @@ func (h *Handlers) SensorData(c *gin.Context) {
 	}
 
 	fmt.Printf("Received sensor data: %+v\n", jsonData)
+	// Store latest sensor data in memory
+	h.latestSensorData = jsonData
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "success",
 		"data":   jsonData,
+	})
+}
+
+// GET /sensor/latest returns the latest sensor data
+func (h *Handlers) GetLatestSensorData(c *gin.Context) {
+	if h.latestSensorData == nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "No sensor data available"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   h.latestSensorData,
 	})
 }

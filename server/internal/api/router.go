@@ -12,4 +12,5 @@ func RegisterRoutes(router *gin.Engine, config *configs.Config) {
 
 	router.GET("/", h.Home)
 	router.POST("/sensor/data", h.SensorData)
+	router.GET("/sensor/latest", h.GetLatestSensorData)
 }

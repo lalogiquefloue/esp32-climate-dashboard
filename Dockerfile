@@ -1,29 +1,49 @@
-# Start from the official Golang image
-FROM golang:1.25-alpine AS builder
+# Stage 1: Build Go app
+FROM golang:1.25-alpine AS gobuilder
 
 WORKDIR /app
 
-# Copy go mod and sum files
+# Copy Go mod/sum files first for dependency caching
 COPY server/go.mod server/go.sum ./
 RUN go mod download
 
-# Copy the rest of the source code
+# Copy the Go source
 COPY server/ ./
 
-# Build the Go app
+# Build the Go binary
 RUN go build -o server ./cmd/server
 
-# Use a minimal image for running
+# -------------------------------------------
+# Stage 2: Build the React frontend
+FROM node:20-alpine AS uibuilder
+
+WORKDIR /app
+
+# Copy only webui files
+COPY server/webui/package*.json ./
+RUN npm ci --silent
+
+COPY server/webui ./
+RUN npm run build
+
+# -------------------------------------------
+# Stage 3: Minimal runtime image
 FROM alpine:latest
 
 WORKDIR /app
 
-# Copy binary and configs
-COPY --from=builder /app/server .
-COPY server/internal/configs ./internal/configs
+# Add HTTPS root certs (for external API calls)
+RUN apk --no-cache add ca-certificates
 
-# Expose the port
+# Copy Go binary
+COPY --from=gobuilder /app/server .
+# Copy configs
+COPY server/internal/configs ./internal/configs
+# Copy built frontend
+COPY --from=uibuilder /app/dist ./webui/dist
+
+# Expose app port
 EXPOSE 8765
 
-# Run the server
+# Run the Go server
 CMD ["./server"]

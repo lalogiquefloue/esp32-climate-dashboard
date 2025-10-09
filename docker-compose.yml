@@ -9,6 +9,8 @@ services:
       - "8765:8765"
     depends_on:
       - influxdb
+    environment:
+      - DOCKER_ENV=true
 
   influxdb:
     image: influxdb:2

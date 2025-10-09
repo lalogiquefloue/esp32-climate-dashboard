@@ -4,7 +4,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     env_file:
-      - ./server/internal/configs/.env
+      - ./.env
     ports:
       - "8765:8765"
     depends_on:

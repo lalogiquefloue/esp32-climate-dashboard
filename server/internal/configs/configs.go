@@ -25,10 +25,12 @@ type Database struct {
 }
 
 func LoadConfigs() *Config {
-	err := godotenv.Load("./internal/configs/.env")
-
-	if err != nil {
-		panic("Error loading .env file...")
+	// Load .env only if not in Docker for local development
+	if os.Getenv("DOCKER_ENV") != "true" {
+		err := godotenv.Load("../../.env")
+		if err != nil {
+			panic("Error loading .env file...")
+		}
 	}
 
 	c := &Config{

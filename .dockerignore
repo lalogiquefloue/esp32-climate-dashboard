@@ -12,9 +12,6 @@ yarn-error.log*
 dist
 build
 
-# Local environment files
-.env
-
 # System / editor files
 .DS_Store
 Thumbs.db

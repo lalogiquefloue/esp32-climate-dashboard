@@ -4,17 +4,24 @@ import (
 	"fmt"
 	"net/http"
 	"server/internal/configs"
+	"server/internal/db"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Handlers struct {
 	config           *configs.Config
-	latestSensorData map[string]interface{}
+	influx           *db.InfluxDB
+	latestSensorData interface{}
 }
 
 func NewHandlers(config *configs.Config) *Handlers {
-	return &Handlers{config: config, latestSensorData: nil}
+	return &Handlers{
+		config:           config,
+		influx:           db.NewInfluxDB(config),
+		latestSensorData: nil,
+	}
 }
 
 func (h *Handlers) Home(c *gin.Context) {
@@ -30,21 +37,38 @@ func (h *Handlers) Home(c *gin.Context) {
 	})
 }
 
-func (h *Handlers) SensorData(c *gin.Context) {
-	var jsonData map[string]interface{}
+// POST /sensor/data accepts JSON sensor data
+func (h *Handlers) ReceiveSensorData(c *gin.Context) {
+	var payload struct {
+		SensorID string  `json:"sensorID"`
+		Temp     float64 `json:"temperature"`
+		Humidity float64 `json:"humidity"`
+		Time     int64   `json:"time"`
+	}
 
-	if err := c.BindJSON(&jsonData); err != nil {
+	if err := c.BindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
 		return
 	}
 
-	fmt.Printf("Received sensor data: %+v\n", jsonData)
+	fmt.Printf("Received sensor data: %+v\n", payload)
+
+	// Convert UNIX timestamp
+	timestamp := time.Unix(payload.Time, 0)
+
 	// Store latest sensor data in memory
-	h.latestSensorData = jsonData
+	h.latestSensorData = payload
+
+	// Ingest received data into InfluxDB
+	if err := h.influx.WriteSensorData(payload.SensorID, payload.Temp, payload.Humidity, timestamp); err != nil {
+		fmt.Println("InfluxDB write error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": "success",
-		"data":   jsonData,
+		"data":   payload,
 	})
 }
 

@@ -19,7 +19,7 @@ func RegisterRoutes(router *gin.Engine, config *configs.Config) {
 	{
 		api.GET("/status", h.Home)
 		api.GET("/sensor/latest", h.GetLatestSensorData)
+		api.GET("/sensor/range", h.GetRangeSensorData)
 		api.POST("/sensor/data", h.ReceiveSensorData)
 	}
-
 }

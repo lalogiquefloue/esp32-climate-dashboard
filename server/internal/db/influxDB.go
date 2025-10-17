@@ -52,12 +52,7 @@ func (db *InfluxDB) WriteSensorData(sensorID string, temp, humidity float64, tim
 }
 
 func (db *InfluxDB) QueryRecentSensorData(sensorID string, duration string) ([]models.SensorData, error) {
-	validDurations := map[string]bool{
-		"15m": true, "30m": true, "1h": true, "6h": true,
-		"12h": true, "24h": true, "1d": true, "7d": true,
-	}
-
-	if !validDurations[duration] {
+	if duration == "" {
 		duration = "1h" // default to 1 hour if no duration or invalid duration is provided
 	}
 

@@ -1,7 +1,7 @@
 .data-table {
   border: 2px solid #444;      /* Frame around the table */
   border-collapse: collapse;
-  width: 100%;
+  width: 800px;
 }
 
 .data-table th, .data-table td {

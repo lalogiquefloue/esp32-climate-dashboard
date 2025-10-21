@@ -1,5 +1,28 @@
 # esp32-climate-dashboard
 
+<!-- TOC -->
+- [esp32-climate-dashboard](#esp32-climate-dashboard)
+  - [Project Overview](#project-overview)
+    - [System Architecture](#system-architecture)
+    - [Technology stack](#technology-stack)
+  - [Firmware](#firmware)
+    - [API Endpoints](#api-endpoints)
+  - [Server / WebUI](#server--webui)
+    - [API Endpoints](#api-endpoints-1)
+  - [Setup and configuration](#setup-and-configuration)
+    - [1 - Prerequisites](#1---prerequisites)
+      - [Hardware](#hardware)
+      - [Software](#software)
+    - [2 - Environment variables](#2---environment-variables)
+    - [3 - Running with Docker](#3---running-with-docker)
+    - [4 - ESP32 Firmware](#4---esp32-firmware)
+    - [5 - Accessing the WebUI](#5---accessing-the-webui)
+  - [Future Development and TODOs:](#future-development-and-todos)
+      - [Firmware](#firmware-1)
+      - [Server](#server)
+      - [UI](#ui)
+<!-- /TOC -->
+
 ## Project Overview
 
 The ESP32 Climate Dashboard is a system made to monitor and visualize sensor data collected by a ESP32 based sensor node. 

@@ -1,7 +1,9 @@
 # esp32-climate-dashboard
 
+## Table of content
 <!-- TOC -->
 - [esp32-climate-dashboard](#esp32-climate-dashboard)
+  - [Table of content](#table-of-content)
   - [Project Overview](#project-overview)
     - [System Architecture](#system-architecture)
     - [Technology stack](#technology-stack)

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RealtimeDataTable from "./Dashboard/RealtimeDataTable"
+import RealtimeData from "./Dashboard/RealtimeData"
 import DataChart from "./Dashboard/DataChart"
 
 const Dashboard = () => {
@@ -13,20 +13,36 @@ const Dashboard = () => {
 
   return (
     <div>
-        <div>
-          <h1>ESP32 Climate Dashboard</h1>
-          <RealtimeDataTable />
-        </div>
-        <br />
-        <div>
-          <h2>Historical Data</h2>
-          <label htmlFor="range">Select Range: </label>
-          <select value={range} onChange={(e) => setRange(e.target.value)}>
-            {ranges.map((r) => (<option key={r} value={r}>{r}</option>))}
+      <div>
+        <h1 className="text-2xl bold ml-2 mb-4 underline">ESP32 Climate Dashboard</h1>
+        <h1 className="text-xl bold ml-2">Live Data</h1>
+        <RealtimeData />
+      </div>
+      <br />
+      <div>
+        <h1 className="text-xl bold ml-2 mb-4">Historical Data</h1>
+        <div className="flex items-center gap-3 ml-2">
+          <label htmlFor="range" className="text-gray-700 font-medium">
+            Select Range:
+          </label>
+
+          <select
+            id="range"
+            value={range}
+            onChange={(e) => setRange(e.target.value)}
+            className="block w-40 rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 shadow-sm"
+          >
+            {ranges.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
           </select>
-          <DataChart range={range} field="temperature" /> 
-          <DataChart range={range} field="humidity" /> 
         </div>
+
+        <DataChart range={range} field="temperature" />
+        <DataChart range={range} field="humidity" />
+      </div>
     </div>
   )
 }

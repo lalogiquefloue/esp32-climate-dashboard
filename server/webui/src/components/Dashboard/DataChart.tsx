@@ -1,5 +1,6 @@
 import * as d3 from "d3"
 import { useEffect, useRef, useState } from "react"
+import { getApiBaseUrl } from "../../utils/api"
 
 interface DataChartProps {
   range?: string;
@@ -47,8 +48,7 @@ const DataChart = ({ range, sensorID, field = "temperature" }: DataChartProps) =
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const fetchData = async (range?: string, sensorID?: string) => {
-    // let url = "http://localhost:8765/api/sensor/range?"; // for local development
-    let url = "/api/sensor/range?"; 
+    let url = getApiBaseUrl() + "/api/sensor/range?"; 
     if (sensorID) url += `sensorID=${encodeURIComponent(sensorID)}&`;
     if (range) url += `range=${encodeURIComponent(range)}&`;
 

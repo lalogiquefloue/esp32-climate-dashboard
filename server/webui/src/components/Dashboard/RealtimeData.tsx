@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { getApiBaseUrl } from "../../utils/api"
 
 type RealTimeData = {
   sensorID: string
@@ -14,8 +15,8 @@ const RealtimeData = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      // fetch("http://localhost:8765/api/sensor/latest") // for local dev
-        fetch("/api/sensor/latest")
+      const url = getApiBaseUrl() + "/api/sensor/latest"
+      fetch(url)
         .then(response => {
           if (!response.ok) throw new Error("Server error...")
           return response.json()
